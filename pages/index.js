@@ -5,6 +5,8 @@ import {PacmanLoader, RotateLoader} from "react-spinners";
 import {Button} from "@nextui-org/react";
 import toast from "react-hot-toast";
 import Prompt from "../components/Prompt";
+import MyNavBar from "../components/MyNavBar";
+import {OwlLogo} from "../components/OwlLogo";
 
 
 export default function Home() {
@@ -12,6 +14,8 @@ export default function Home() {
         <>
             {/*<RotateLoader color={"#000000"} loading={true} size={20}/>*/}
             <Prompt/>
+
+
 
         </>
     )
