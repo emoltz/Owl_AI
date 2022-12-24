@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import {Toaster} from "react-hot-toast";
 import {createTheme, NextUIProvider} from '@nextui-org/react'
 import MyNavBar from "../components/MyNavBar";
+import {UserContext} from '../lib/context';
 
 const theme = createTheme({
     type: "light",
@@ -19,11 +20,15 @@ const theme = createTheme({
 export default function App({Component, pageProps}) {
     return (
         <>
-            <NextUIProvider theme={theme}>
-                <MyNavBar/>
-                <Component {...pageProps} />
-                <Toaster position={"bottom-right"} reverseOrder={false}/>
-            </NextUIProvider>
+            {/*TODO change `username` below to be dynamic */}
+            <UserContext.Provider value={{user: {}, username: 'ethan'}}>
+                <NextUIProvider theme={theme}>
+                    <MyNavBar/>
+                    <Component {...pageProps} />
+                    <Toaster position={"bottom-right"} reverseOrder={false}/>
+                </NextUIProvider>
+            </UserContext.Provider>
+
 
         </>
 

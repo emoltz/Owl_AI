@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Navbar, Button, Link, Text} from "@nextui-org/react";
 import {OwlLogo} from "./OwlLogo";
+import {UserContext} from "../lib/context";
 
 
 // TODO there is an issue here in the console that needs addressing
 // Top navbar
 export default function MyNavBar() {
-    const user = null;
-    const username = null;
+    const {user, username } = useContext(UserContext);
 
     // const user = true;
     // const username = true;
@@ -30,7 +30,7 @@ export default function MyNavBar() {
                 {/*SIGNED IN*/}
                 {username && (
                     <>
-                        <Navbar.Content hideIn={""}>
+                        <Navbar.Content hideIn={"smMax"}>
                             <Navbar.Link href={"/"}>About</Navbar.Link>
                             <Navbar.Link href={"/"}>My Stuff</Navbar.Link>
                             <Navbar.Item>
@@ -38,13 +38,11 @@ export default function MyNavBar() {
                                     My Profile
                                 </Button>
                             </Navbar.Item>
-
                         </Navbar.Content>
+
                     </>
 
                 )}
-
-                {/*    END SIGNED IN*/}
 
 
                 {/*NOT SIGNED IN*/}
@@ -61,8 +59,6 @@ export default function MyNavBar() {
                         </Navbar.Content>
                     </>
                 )}
-
-                {/*    END NOT SIGNED IN*/}
 
 
             </Navbar>

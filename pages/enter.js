@@ -1,9 +1,10 @@
 import {auth, googleAuthProvider} from '../lib/firebase';
 import {Button} from "@nextui-org/react";
+import {useContext} from "react";
+import {UserContext} from "../lib/context";
 
 export default function Enter(props) {
-    const user = null;
-    const username = null;
+    const {user, username} = useContext(UserContext);
 
     return (
         <main>
@@ -32,7 +33,7 @@ function SignInButton() {
 }
 
 function SignOutButton() {
-    return <button onClick={() => auth.signOut()}>Sign Out</button>;
+    return <Button color={"secondary"} onClick={() => auth.signOut()}>Sign Out</Button>;
 
 }
 
