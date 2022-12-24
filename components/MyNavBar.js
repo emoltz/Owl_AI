@@ -13,7 +13,7 @@ export default function MyNavBar() {
             <Navbar isBordered variant={variant}>
                 <Navbar.Brand>
                     <OwlLogo/>
-                    <Text b color={"inherit"} hideIn={"xs"}>
+                    <Text b color={"inherit"} hideIn={"xs"} as={Link} href={"/"}>
                         Owl.ai
                     </Text>
                 </Navbar.Brand>
