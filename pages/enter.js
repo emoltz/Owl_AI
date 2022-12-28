@@ -1,17 +1,25 @@
-import {auth, googleAuthProvider} from '../lib/firebase';
+import {auth} from '../lib/firebase';
+import {UserContext} from "../lib/context";
 import {Button} from "@nextui-org/react";
 import {useContext} from "react";
-import {UserContext} from "../lib/context";
+import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 
 export default function Enter(props) {
     const {user, username} = useContext(UserContext);
 
     return (
         <main>
-            {user ?
-                !username ? <UsernameForm/> : <SignOutButton/>
-                :
-                <SignInButton/>
+            {
+                user ?
+                    <div>
+
+                        <h1>Logged In</h1> <SignOutButton/>
+                    </div>
+                    :
+                    <div>
+                        <h1>Not User</h1> <SignInButton/>
+                    </div>
+
             }
         </main>
 
@@ -22,7 +30,8 @@ export default function Enter(props) {
 
 function SignInButton() {
     const signInWithGoogle = async () => {
-        await auth.signInWithPopup(googleAuthProvider);
+        const googleProvider = new GoogleAuthProvider();
+        await signInWithPopup(auth, googleProvider);
     };
 
     return (

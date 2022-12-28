@@ -3,6 +3,7 @@ import {Toaster} from "react-hot-toast";
 import {createTheme, NextUIProvider} from '@nextui-org/react'
 import MyNavBar from "../components/MyNavBar";
 import {UserContext} from '../lib/context';
+import {useUserData} from "../lib/hooks";
 
 const theme = createTheme({
     type: "light",
@@ -18,10 +19,12 @@ const theme = createTheme({
 });
 
 export default function App({Component, pageProps}) {
+
+    const userData = useUserData();
     return (
         <>
             {/*TODO change `username` below to be dynamic */}
-            <UserContext.Provider value={{user: {}, username: 'ethan'}}>
+            <UserContext.Provider value={userData}>
                 <NextUIProvider theme={theme}>
                     <MyNavBar/>
                     <Component {...pageProps} />
