@@ -28,7 +28,7 @@ export default function MyNavBar() {
                 </Navbar.Content>
 
                 {/*SIGNED IN*/}
-                {username && (
+                {user && (
                     <>
                         <Navbar.Content hideIn={"smMax"}>
                             <Navbar.Link href={"/"}>About</Navbar.Link>
@@ -47,7 +47,7 @@ export default function MyNavBar() {
 
                 {/*NOT SIGNED IN*/}
 
-                {!username && (
+                {!user && (
                     <>
                         <Navbar.Content hideIn={""}>
                             <Navbar.Item>
