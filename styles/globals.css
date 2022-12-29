@@ -1,3 +1,17 @@
-a{
-    color: black;
+:root {
+    --color-text: #08090a;
+}
+
+/*button.btn-google {*/
+/*  background-color: white;*/
+/*  color: var(--color-text);*/
+/*}*/
+
+.btn-google img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.text-center{
+    text-align: center;
 }
