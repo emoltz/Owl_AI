@@ -13,7 +13,6 @@ export default function Enter(props) {
         <>
             <Grid.Container gap={2} justify={"center"}>
                 <Grid xs={4} alignItems={"center"}>
-
                     {
                         user ?
                             // logged in?
@@ -29,8 +28,6 @@ export default function Enter(props) {
                     }
 
                 </Grid>
-
-
             </Grid.Container>
 
         </>
