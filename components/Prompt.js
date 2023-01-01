@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button} from "@nextui-org/react";
+import {Button, Input} from "@nextui-org/react";
+import {Grid, Container, Card, Row, Text} from "@nextui-org/react";
 import toast from "react-hot-toast";
 
 
@@ -34,18 +35,30 @@ const Prompt = () => {
 
 
     return (
-        <div>
-            <h1>Prompt </h1>
-            <div id="result">
-                <form action={""} method={"POST"} onSubmit={handleSubmit}>
-                    <label htmlFor={"prompt"}>Prompt:</label>
-                    <input type={"text"} name={"prompt"} id={"prompt"}/>
-                    <Button type={"submit"}>Generate</Button>
-                    {result && <div id="result"> {result} </div>}
-                </form>
-            </div>
+        <>
 
-        </div>
+
+
+            <Container fluid>
+
+                <div id="result" className={"text-center"}>
+                    <h1>Enter Your Text </h1>
+                    <form action={""} method={"POST"} onSubmit={handleSubmit}>
+                        <textarea id={"text-box"} rows="20" cols="50"/>
+                        <Grid.Container justify={"center"}>
+                            <Grid alignItems={"center"}>
+                                <Button type={"submit"}>Generate</Button>
+                            </Grid>
+                        </Grid.Container>
+
+                        {result && <div id="result"> {result} </div>}
+                    </form>
+                </div>
+
+            </Container>
+
+
+        </>
     );
 };
 

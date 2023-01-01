@@ -38,7 +38,7 @@ export default function MyNavBar() {
                             <Navbar.Link href={"/"}>About</Navbar.Link>
                             <Navbar.Link href={"/"}>My Stuff</Navbar.Link>
                             <Navbar.Item>
-                                <Button auto flat as={Link} href={"#"}>
+                                <Button auto flat as={Link} href={"/enter"}>
                                     My Profile
                                 </Button>
                             </Navbar.Item>
