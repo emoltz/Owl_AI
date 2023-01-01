@@ -35,7 +35,7 @@ export default function MyNavBar() {
                     <>
                         <Navbar.Content hideIn={"smMax"}>
 
-                            <Navbar.Link href={"/"}>About</Navbar.Link>
+                            <Navbar.Link href={"/about"}>About</Navbar.Link>
                             <Navbar.Link href={"/"}>My Stuff</Navbar.Link>
                             <Navbar.Item>
                                 <Button auto flat as={Link} href={"/enter"}>

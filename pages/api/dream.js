@@ -21,6 +21,7 @@ export default async function handler(req, res){
         temperature: 0,
     });
     const text = aiResponse.data.choices[0].text;
+    console.log(text);
     res.send({text});
 }
 

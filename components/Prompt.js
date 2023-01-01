@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Input} from "@nextui-org/react";
-import {Grid, Container, Card, Row, Text} from "@nextui-org/react";
+import {Grid, Container, Card, Spacer, Textarea} from "@nextui-org/react";
 import toast from "react-hot-toast";
 
 
@@ -25,7 +25,6 @@ const Prompt = () => {
         });
         toast.success("Success!")
 
-
         const {text} = await response.json();
         setResult(text);
 
@@ -36,15 +35,23 @@ const Prompt = () => {
 
     return (
         <>
-
-
-
             <Container fluid>
 
                 <div id="result" className={"text-center"}>
-                    <h1>Enter Your Text </h1>
+                    <Spacer y={4}/>
+                    {/*<h1>Owl.ai </h1>*/}
                     <form action={""} method={"POST"} onSubmit={handleSubmit}>
-                        <textarea id={"text-box"} rows="20" cols="50"/>
+                        <Textarea
+                            bordered
+                            type={"text"} name={"prompt"} id={"prompt"}
+                            labelPlaceholder={"Enter the text you'd like to scaffold here."}
+                            aria-label={"Enter the text you'd like to scaffold here."}
+                            minRows={2}
+                            maxRows={100}
+                            fullWidth={true}
+
+                        />
+                        <Spacer y={1}/>
                         <Grid.Container justify={"center"}>
                             <Grid alignItems={"center"}>
                                 <Button type={"submit"}>Generate</Button>
