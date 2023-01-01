@@ -11,7 +11,6 @@ export default function Home() {
         <>
             {/*<RotateLoader color={"#000000"} loading={true} size={20}/>*/}
             <Prompt/>
-            <ThemeSwitcher/>
         </>
     )
 }
