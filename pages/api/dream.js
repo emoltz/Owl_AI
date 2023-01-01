@@ -17,12 +17,12 @@ export default async function handler(req, res){
 
     const gradeLevel = req.body.gradeLevel;
     const language = req.body.language;
-    prompt += "Rewrite this in " + gradeLevel + " " + language + ":\n";
+    prompt += "Rewrite this in " + gradeLevel + " and translate it to " + language + ":\n";
 
     const aiResponse = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: prompt,
-        max_tokens: 300,
+        max_tokens: 700,
         temperature: 0,
     });
     const text = aiResponse.data.choices[0].text;

@@ -24,19 +24,13 @@ export default function MyNavBar() {
                     </Text>
                 </Navbar.Brand>
 
-                <Navbar.Content>
-                    <Navbar.Item>
-                    <ThemeSwitcher/>
-                    </Navbar.Item>
-                </Navbar.Content>
-
                 {/*SIGNED IN*/}
                 {user && (
                     <>
                         <Navbar.Content hideIn={"smMax"}>
-
+                            <ThemeSwitcher/>
                             <Navbar.Link href={"/about"}>About</Navbar.Link>
-                            <Navbar.Link href={"/"}>My Stuff</Navbar.Link>
+                            {/*<Navbar.Link href={"/"}>My Stuff</Navbar.Link>*/}
                             <Navbar.Item>
                                 <Button auto flat as={Link} href={"/enter"}>
                                     My Profile

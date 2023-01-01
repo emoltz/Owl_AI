@@ -22,8 +22,6 @@ const Prompt = () => {
 
 
     const [result, setResult] = React.useState(null);
-    // extract data
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,8 +30,8 @@ const Prompt = () => {
         const language = selectedLanguage;
 
         //catch if gradelevel and language are set to default values of "Select Grade Level" and "Select Language"
-        if (gradeLevel.has("Select Grade Level") || language.has("Select Language")) {
-            toast.error("Please select a grade level and language");
+        if (gradeLevel.has("Select Grade Level")) {
+            toast.error("Please select a grade level.");
             return;
         }
 
@@ -107,21 +105,21 @@ const Prompt = () => {
                                 </Dropdown.Menu>
 
                             </Dropdown>
-                            <Spacer y={1}/>
-                            <Dropdown>
-                                <Dropdown.Button flat> {selectedLanguageValue}</Dropdown.Button>
-                                <Dropdown.Menu aria-label="Language"
-                                               disallowEmptySelection={true}
-                                               selectionMode={"single"}
-                                               selectedKeys={selectedLanguage}
-                                               onSelectionChange={setSelectedLanguage}
-                                >
-                                    <Dropdown.Item key={"English"}>English</Dropdown.Item>
-                                    <Dropdown.Item key={"Spanish"}>Spanish</Dropdown.Item>
-                                    <Dropdown.Item key={"French"}>French</Dropdown.Item>
-                                </Dropdown.Menu>
+                            {/*<Spacer y={1}/>*/}
+                            {/*<Dropdown>*/}
+                            {/*    <Dropdown.Button flat> {selectedLanguageValue}</Dropdown.Button>*/}
+                            {/*    <Dropdown.Menu aria-label="Language"*/}
+                            {/*                   disallowEmptySelection={true}*/}
+                            {/*                   selectionMode={"single"}*/}
+                            {/*                   selectedKeys={selectedLanguage}*/}
+                            {/*                   onSelectionChange={setSelectedLanguage}*/}
+                            {/*    >*/}
+                            {/*        <Dropdown.Item key={"English"}>English</Dropdown.Item>*/}
+                            {/*        <Dropdown.Item key={"Spanish"}>Spanish</Dropdown.Item>*/}
+                            {/*        <Dropdown.Item key={"French"}>French</Dropdown.Item>*/}
+                            {/*    </Dropdown.Menu>*/}
 
-                            </Dropdown>
+                            {/*</Dropdown>*/}
                         </Grid.Container>
 
 

@@ -5,6 +5,7 @@ import Prompt from "../components/Prompt";
 import {useContext} from "react";
 import {UserContext} from "../lib/context";
 import ThemeSwitcher from "../components/ThemeSwitcher";
+import Welcome from "../components/Welcome";
 
 
 
@@ -17,9 +18,7 @@ export default function Home() {
             {user ?
                 <Prompt/>
                 :
-                <div>
-                    Sign In!
-                </div>
+                <Welcome/>
             }
         </>
     )
