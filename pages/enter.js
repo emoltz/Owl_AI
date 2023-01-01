@@ -13,27 +13,21 @@ export default function Enter(props) {
         <>
             <Grid.Container gap={2} justify={"center"}>
                 <Grid xs={4} alignItems={"center"}>
-
                     {
-                    user ?
-                        // logged in?
-                        <div>
-                            <h1 className={"text-center"}>Sign Out</h1>
-                            <SignOutButton/>
-                        </div>
-                        :
-                        <div>
-                            <h2 className={"text-center"}>Sign In</h2>
-                            <SignInButton/>
-                        </div>
-                }
+                        user ?
+                            // logged in?
+                            <div>
+                                <h1 className={"text-center"}>Sign Out</h1>
+                                <SignOutButton/>
+                            </div>
+                            :
+                            <div>
+                                <h2 className={"text-center"}>Sign In</h2>
+                                <SignInButton/>
+                            </div>
+                    }
 
                 </Grid>
-
-
-
-
-
             </Grid.Container>
 
         </>
@@ -42,15 +36,8 @@ export default function Enter(props) {
 
 
 function SignInButton() {
-    // const signInWithGoogle = async () => {
-    //     const googleProvider = new GoogleAuthProvider();
-    //     await signInWithPopup(auth, googleProvider);
-    // };
 
     return (
-        // <Button size="xl" color="secondary" className={"btn-google"} onClick={signInWithGoogle}>
-        //     <img src={'/google.png'} alt={"Sign in with Google"}/> Sign in with Google
-        // </Button>
         <GoogleButton
             onClick={async () => {
                 const googleProvider = new GoogleAuthProvider();

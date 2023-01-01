@@ -45,7 +45,7 @@ export default function App({Component, pageProps}) {
                         dark: darkTheme.className,
                     }}
                 >
-                    <NextUIProvider theme={lightTheme}>
+                    <NextUIProvider>
                         <MyNavBar/>
                         <Component {...pageProps} />
                         <Toaster position={"bottom-right"} reverseOrder={false}/>

@@ -1,22 +1,25 @@
-import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Link from "next/link";
 import {PacmanLoader, RotateLoader} from "react-spinners";
-import {Button} from "@nextui-org/react";
-import toast from "react-hot-toast";
 import Prompt from "../components/Prompt";
-import MyNavBar from "../components/MyNavBar";
-import {OwlLogo} from "../components/OwlLogo";
+import {useContext} from "react";
+import {UserContext} from "../lib/context";
+import ThemeSwitcher from "../components/ThemeSwitcher";
+import Welcome from "../components/Welcome";
+
 
 
 export default function Home() {
+    const {user, username} = useContext(UserContext);
+
     return (
         <>
             {/*<RotateLoader color={"#000000"} loading={true} size={20}/>*/}
-            <Prompt/>
-
-
-
+            {user ?
+                <Prompt/>
+                :
+                <Welcome/>
+            }
         </>
     )
 }
