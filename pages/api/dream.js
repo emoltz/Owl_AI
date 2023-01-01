@@ -13,7 +13,12 @@ const openai = new OpenAIApi(configuration);
 
 
 export default async function handler(req, res){
-    const prompt = req.body.prompt;
+    let prompt = req.body.prompt;
+
+    const gradeLevel = req.body.gradeLevel;
+    const language = req.body.language;
+    prompt += "Rewrite this in " + gradeLevel + " " + language + ":\n";
+
     const aiResponse = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: prompt,

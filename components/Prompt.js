@@ -1,37 +1,12 @@
 import React from 'react';
-import {Button, Input, Text} from "@nextui-org/react";
+import {Button, Text} from "@nextui-org/react";
 import {Grid, Container, Dropdown, Spacer, Textarea} from "@nextui-org/react";
 import toast from "react-hot-toast";
 
 
 const Prompt = () => {
 
-    const [result, setResult] = React.useState(null);
-    // extract data
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.target);
-
-        const toastId = toast.loading("Loading...")
-
-        const response = await fetch('/api/dream', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                prompt: data.get('prompt')
-            }),
-        });
-        toast.success("Success!")
-
-        const {text} = await response.json();
-        setResult(text);
-
-        toast.dismiss(toastId)
-
-    }
-
+    // DROPDOWN MENU STUFF
     const [selectedGradeLevel, setSelectedGradeLevel] = React.useState(new Set(["Select Grade Level"]));
     const selectedGradeLevelValue = React.useMemo(
         () => Array.from(selectedGradeLevel).join(", ").replaceAll("_", " ")
@@ -43,6 +18,47 @@ const Prompt = () => {
         () => Array.from(selectedLanguage).join(", ").replaceAll("_", " ")
         , [selectedLanguage]
     );
+
+
+
+    const [result, setResult] = React.useState(null);
+    // extract data
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const gradeLevel = selectedGradeLevel;
+        const language = selectedLanguage;
+
+        //catch if gradelevel and language are set to default values of "Select Grade Level" and "Select Language"
+        if (gradeLevel.has("Select Grade Level") || language.has("Select Language")) {
+            toast.error("Please select a grade level and language");
+            return;
+        }
+
+        const data = new FormData(event.target);
+
+        const toastId = toast.loading("Loading...")
+
+        const response = await fetch('/api/dream', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt: data.get('prompt'),
+                gradeLevel: gradeLevel,
+                language: language
+            }),
+        });
+        toast.dismiss(toastId)
+        toast.success("Success!")
+
+        const {text} = await response.json();
+        setResult(text);
+
+    }
 
     return (
         <>
@@ -116,7 +132,6 @@ const Prompt = () => {
                             </Grid>
                         </Grid.Container>
 
-
                         {/*RESULTS:*/}
                         {result &&
                             <>
@@ -124,7 +139,6 @@ const Prompt = () => {
                                 <Text blockquote
                                       id="result"> {result} </Text>
                             </>
-
                         }
                     </form>
                 </div>
