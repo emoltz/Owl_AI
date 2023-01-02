@@ -13,11 +13,14 @@ const openai = new OpenAIApi(configuration);
 
 
 export default async function handler(req, res){
-    let prompt = req.body.prompt;
-
     const gradeLevel = req.body.gradeLevel;
     const language = req.body.language;
-    prompt += "Rewrite this in " + gradeLevel + " and translate it to " + language + ":\n";
+
+    let prompt = "Rewrite the following at a " + gradeLevel + " reading level: ";
+
+    prompt += req.body.prompt;
+
+    console.log(prompt);
 
     const aiResponse = await openai.createCompletion({
         model: "text-davinci-003",
@@ -26,7 +29,7 @@ export default async function handler(req, res){
         temperature: 0,
     });
     const text = aiResponse.data.choices[0].text;
-    console.log(text);
+    // console.log(text);
     res.send({text});
 }
 
