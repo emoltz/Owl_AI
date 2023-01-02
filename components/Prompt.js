@@ -19,21 +19,21 @@ const Prompt = () => {
         , [selectedLanguage]
     );
 
-
-
     const [result, setResult] = React.useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const gradeLevel = selectedGradeLevel;
-        const language = selectedLanguage;
+
+        // get grade level text from selectedGradeLevel set
+        const gradeLevel = selectedGradeLevelValue;
+        let language = selectedLanguageValue;
 
         //catch if gradelevel and language are set to default values of "Select Grade Level" and "Select Language"
-        if (gradeLevel.has("Select Grade Level")) {
-            toast.error("Please select a grade level.");
-            return;
-        }
+        // if (gradeLevel.has("Select Grade Level")) {
+        //     toast.error("Please select a grade level.");
+        //     return;
+        // }
 
         const data = new FormData(event.target);
 
@@ -68,6 +68,7 @@ const Prompt = () => {
                     <form action={""} method={"POST"} onSubmit={handleSubmit}>
                         <Textarea
                             bordered
+                            htmlFor={"prompt"}
                             type={"text"} name={"prompt"} id={"prompt"}
                             labelPlaceholder={"Enter the text you'd like to scaffold here."}
                             aria-label={"Enter the text you'd like to scaffold here."}
