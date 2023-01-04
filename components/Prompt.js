@@ -137,6 +137,16 @@ const Prompt = () => {
                                 <Spacer y={2}/>
                                 <Text blockquote
                                       id="result"> {result} </Text>
+
+                                <Grid.Container justify={"center"}>
+                                    <Grid alignItems={"center"}>
+                                        <Button color={"secondary"}>
+                                            Save to My Stuff
+                                        </Button>
+                                    </Grid>
+                                </Grid.Container>
+
+
                             </>
                         }
                     </form>

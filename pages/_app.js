@@ -7,26 +7,18 @@ import {UserContext} from '../lib/context';
 import {useUserData} from "../lib/hooks";
 
 const lightTheme = createTheme({
-    type: "light",
-    theme: {
+    type: "light", theme: {
         colors: {
-            primary: "#3eaf63",
-            success: "#F9CB80",
-            error: "#FCC5D8",
-            background: "#fafafa",
+            primary: "#3eaf63", success: "#F9CB80", error: "#FCC5D8", background: "#fafafa",
 
         }
     }
 });
 
 const darkTheme = createTheme({
-    type: "dark",
-    theme: {
+    type: "dark", theme: {
         colors: {
-            primary: "#246439",
-            success: "#4f4029",
-            error: "#5e4a51",
-            background: "#2d2d2d",
+            primary: "#246439", success: "#4f4029", error: "#5e4a51", background: "#2d2d2d",
         }
     }
 });
@@ -34,15 +26,13 @@ const darkTheme = createTheme({
 export default function App({Component, pageProps}) {
 
     const userData = useUserData();
-    return (
-        <>
+    return (<>
             <UserContext.Provider value={userData}>
                 <NextThemesProvider
                     defaultTheme={"system"}
                     attribute="class"
                     value={{
-                        light: lightTheme.className,
-                        dark: darkTheme.className,
+                        light: lightTheme.className, dark: darkTheme.className,
                     }}
                 >
                     <NextUIProvider>
