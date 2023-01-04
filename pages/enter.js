@@ -1,10 +1,11 @@
 import {auth} from '../lib/firebase';
 import {UserContext} from "../lib/context";
-import {Button} from "@nextui-org/react";
+import {Button, Spacer} from "@nextui-org/react";
 import {useContext} from "react";
 import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import GoogleButton from "react-google-button";
 import {Grid, Card} from "@nextui-org/react";
+import Link from "next/link";
 
 export default function Enter(props) {
     const {user, username} = useContext(UserContext);
@@ -17,7 +18,10 @@ export default function Enter(props) {
                         user ?
                             // logged in?
                             <div>
-                                <h1 className={"text-center"}>Sign Out</h1>
+                                <Button shadow as={Link} href={"/"}>
+                                    Home
+                                </Button>
+                                <Spacer y={1}/>
                                 <SignOutButton/>
                             </div>
                             :
