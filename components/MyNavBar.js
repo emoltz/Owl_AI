@@ -9,11 +9,11 @@ import ThemeSwitcher from "./ThemeSwitcher";
 // Top navbar
 export default function MyNavBar() {
     const {user, username} = useContext(UserContext);
+    const [variant, setVariant] = React.useState("floating");
 
     // const user = true;
     // const username = true;
 
-    const [variant, setVariant] = React.useState("floating");
     return (
         <>
             <Navbar isBordered variant={variant}>
