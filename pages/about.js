@@ -6,7 +6,7 @@ export default function About() {
 
   return (
     <div>
-        <Container>
+        <Container fluid>
 
             <Spacer y={2}/>
             <Card isHoverable css={{mw:"400px", padding:"30px"}}>

@@ -4,7 +4,6 @@ import {PacmanLoader, RotateLoader} from "react-spinners";
 import Prompt from "../components/Prompt";
 import {useContext} from "react";
 import {UserContext} from "../lib/context";
-import ThemeSwitcher from "../components/ThemeSwitcher";
 import Welcome from "../components/Welcome";
 
 
