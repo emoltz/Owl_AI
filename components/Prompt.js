@@ -4,7 +4,6 @@ import {Grid, Container, Dropdown, Spacer, Textarea} from "@nextui-org/react";
 import toast from "react-hot-toast";
 import {UserContext} from "../lib/context";
 import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
-import {Main} from "next/document";
 
 
 const Prompt = () => {
@@ -66,19 +65,19 @@ const Prompt = () => {
         const uniqueID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         const uid = user.uid;
 
-        const ref = doc(getFirestore(), 'saved_text', uid); //TODO change to uniqueID later
+        const ref = doc(getFirestore(), 'saved_text', uniqueID); //TODO change to uniqueID later
         const data = {
             archived: false,
             contents: content,
             // original_text: original_text,
             id: uniqueID,
             user_display_name: user.displayName,
-            userID: uid,
+            user_id: uid,
             created_date: serverTimestamp(),
             title: title,
             notes: notes,
             language: language,
-            gradeLevel: gradeLevel
+            grade_level: gradeLevel
         };
         await setDoc(ref, data);
         toast.dismiss(loading);
@@ -96,6 +95,7 @@ const Prompt = () => {
 
     return (
         <>
+
             <Container fluid>
 
                 <div id="result" className={"text-center"}>
