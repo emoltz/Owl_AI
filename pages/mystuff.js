@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
     const ref = collectionGroup(getFirestore(), 'saved_text')
     const q = query(
         ref,
-        // where('user_id', '==', "OTArZphQoKUcN6pHIpSXfB2QUI12")
+        where('user_id', '==', "OTArZphQoKUcN6pHIpSXfB2QUI12")
     )
 
     const res = (await getDocs(q)).docs.map(postToJSON);
@@ -57,10 +57,8 @@ function MyStuff(props) {
                 <h3>Data goes here:</h3>
                 {res.map((item) => {
                     return (
-
+                        // TODO make into card component
                         <div key={item.id}><h3>Contents:</h3> {item.contents}
-                        <br/>
-                            <h3>Original Text:</h3> {item.original_text}
                         </div>
                     )
 

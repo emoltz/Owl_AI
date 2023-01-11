@@ -1,9 +1,10 @@
 import React, {useContext} from 'react';
-import {Button, Popover, Text} from "@nextui-org/react";
+import {Button, Input, Modal, Popover, Text} from "@nextui-org/react";
 import {Grid, Container, Dropdown, Spacer, Textarea} from "@nextui-org/react";
 import toast from "react-hot-toast";
 import {UserContext} from "../lib/context";
 import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
+import {Main} from "next/document";
 
 
 const Prompt = () => {
@@ -60,7 +61,7 @@ const Prompt = () => {
 
     }
 
-    async function sendToSavedText(content) {
+    async function sendToSavedText(content, gradeLevel, language = "English", title, notes) {
         const loading = toast.loading("Saving...")
         const uniqueID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         const uid = user.uid;
@@ -73,7 +74,11 @@ const Prompt = () => {
             id: uniqueID,
             user_display_name: user.displayName,
             userID: uid,
-            created_date: serverTimestamp()
+            created_date: serverTimestamp(),
+            title: title,
+            notes: notes,
+            language: language,
+            gradeLevel: gradeLevel
         };
         await setDoc(ref, data);
         toast.dismiss(loading);
@@ -81,18 +86,13 @@ const Prompt = () => {
 
     }
 
-    //hidden component
+    //modal for saving data
     const [isVisible, setIsVisible] = React.useState(false);
-    function MyHiddenComponent(){
-        // this is where it will use a form to send to firestore
-        return (
-            <div>
-
-
-            </div>
-        )
+    const [inputTitleValue, setInputTitleValue] = React.useState("");
+    const handler = () => setIsVisible(true);
+    const closeModalHandler = () => {
+        setIsVisible(false);
     }
-
 
     return (
         <>
@@ -176,17 +176,59 @@ const Prompt = () => {
 
                                 <Grid.Container justify={"center"}>
                                     <Grid alignItems={"center"}>
-                                        <Button color={"secondary"}
-                                                onPress={(e) => {
-                                                    sendToSavedText(result);
-                                                    console.log("sent to firestore");
-                                                    setIsVisible(!isVisible);
-                                                }
-
-                                                }>
+                                        <Button auto shadow color={"secondary"} onPress={handler}>
                                             Save to My Stuff
                                         </Button>
-                                        {isVisible && <MyHiddenComponent/>}
+                                        <Modal
+                                            closeButton
+                                            aria-labelledby="modal-title"
+                                            open={isVisible}
+                                            onClose={closeModalHandler}
+                                        >
+                                            <Modal.Header>
+                                                <Text id={"modal-title"} size={18}>
+                                                    Save to My Stuff
+                                                </Text>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <Input
+                                                    clearable
+                                                    underlined
+                                                    fullWidth
+                                                    color={"secondary"}
+                                                    size={"lg"}
+                                                    placeholder={"Enter a title for your text"}
+                                                    value={inputTitleValue}
+                                                    onChange={(event) => setInputTitleValue(event.target.value)}
+                                                />
+                                                <Input
+                                                    clearable
+                                                    underlined
+                                                    fullWidth
+                                                    color={"secondary"}
+                                                    size={"lg"}
+                                                    placeholder={"Enter any notes you'd like to add"}
+                                                />
+                                                <Button color={"secondary"} auto shadow onPress={(e) => {
+                                                    sendToSavedText(result, selectedGradeLevelValue, "English", inputTitleValue, "notes");
+                                                    //close modal
+                                                    closeModalHandler();
+                                                }}>
+                                                    Save
+
+                                                </Button>
+                                            </Modal.Body>
+                                        </Modal>
+
+                                        {/*<Button color={"secondary"}*/}
+                                        {/*        onPress={(e) => {*/}
+                                        {/*            sendToSavedText(result);*/}
+                                        {/*            console.log("sent to firestore");*/}
+                                        {/*        }*/}
+
+                                        {/*        }>*/}
+                                        {/*    Save to My Stuff*/}
+                                        {/*</Button>*/}
                                     </Grid>
                                 </Grid.Container>
 
