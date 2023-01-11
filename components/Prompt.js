@@ -1,11 +1,13 @@
-import React from 'react';
-import {Button, Text} from "@nextui-org/react";
+import React, {useContext} from 'react';
+import {Button, Popover, Text} from "@nextui-org/react";
 import {Grid, Container, Dropdown, Spacer, Textarea} from "@nextui-org/react";
 import toast from "react-hot-toast";
+import {UserContext} from "../lib/context";
+import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
 
 
 const Prompt = () => {
-
+    const {user} = useContext(UserContext);
     // DROPDOWN MENU STUFF
     const [selectedGradeLevel, setSelectedGradeLevel] = React.useState(new Set(["Select Grade Level"]));
     const selectedGradeLevelValue = React.useMemo(
@@ -57,6 +59,40 @@ const Prompt = () => {
         setResult(text);
 
     }
+
+    async function sendToSavedText(content) {
+        const loading = toast.loading("Saving...")
+        const uniqueID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const uid = user.uid;
+
+        const ref = doc(getFirestore(), 'saved_text', uid); //TODO change to uniqueID later
+        const data = {
+            archived: false,
+            contents: content,
+            // original_text: original_text,
+            id: uniqueID,
+            user_display_name: user.displayName,
+            userID: uid,
+            created_date: serverTimestamp()
+        };
+        await setDoc(ref, data);
+        toast.dismiss(loading);
+        toast.success("Saved to Your Stuff!")
+
+    }
+
+    //hidden component
+    const [isVisible, setIsVisible] = React.useState(false);
+    function MyHiddenComponent(){
+        // this is where it will use a form to send to firestore
+        return (
+            <div>
+
+
+            </div>
+        )
+    }
+
 
     return (
         <>
@@ -140,9 +176,17 @@ const Prompt = () => {
 
                                 <Grid.Container justify={"center"}>
                                     <Grid alignItems={"center"}>
-                                        <Button color={"secondary"}>
+                                        <Button color={"secondary"}
+                                                onPress={(e) => {
+                                                    sendToSavedText(result);
+                                                    console.log("sent to firestore");
+                                                    setIsVisible(!isVisible);
+                                                }
+
+                                                }>
                                             Save to My Stuff
                                         </Button>
+                                        {isVisible && <MyHiddenComponent/>}
                                     </Grid>
                                 </Grid.Container>
 
@@ -153,8 +197,6 @@ const Prompt = () => {
                 </div>
 
             </Container>
-
-
         </>
     );
 };
