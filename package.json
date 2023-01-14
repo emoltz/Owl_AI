@@ -14,6 +14,7 @@
     "@nextui-org/react": "^1.0.0-beta.11",
     "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
+    "firebase-admin": "^11.4.1",
     "firebase-tools": "^11.19.0",
     "next": "13.1.0",
     "next-env": "^1.1.1",
