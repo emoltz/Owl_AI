@@ -12,6 +12,7 @@
   "dependencies": {
     "@next/font": "^13.1.0",
     "@nextui-org/react": "^1.0.0-beta.11",
+    "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
     "firebase-admin": "^11.4.1",
@@ -22,6 +23,7 @@
     "openai": "^3.1.0",
     "playwright": "^1.29.1",
     "react": "18.2.0",
+    "react-bootstrap": "^2.7.0",
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-google-button": "^0.7.2",
