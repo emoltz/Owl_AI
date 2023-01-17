@@ -5,7 +5,6 @@ import Prompt from "../components/Prompt";
 import {useContext} from "react";
 import {UserContext} from "../lib/context";
 import Welcome from "../components/Welcome";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 

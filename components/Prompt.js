@@ -4,7 +4,6 @@ import {Grid, Container, Dropdown, Spacer, Textarea} from "@nextui-org/react";
 import toast from "react-hot-toast";
 import {UserContext} from "../lib/context";
 import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
-import DropdownBootstrap from "../components/DropdownBootstrap";
 
 
 const Prompt = () => {
