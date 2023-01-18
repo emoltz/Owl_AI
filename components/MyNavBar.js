@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import {Navbar, Button, Link, Text} from "@nextui-org/react";
 import {OwlLogo} from "./OwlLogo";
+
 import {UserContext} from "../lib/context";
 import ThemeSwitcher from "./ThemeSwitcher";
 
@@ -30,14 +31,17 @@ export default function MyNavBar() {
                         <Navbar.Content hideIn={"smMax"}>
                             <ThemeSwitcher/>
                             <Navbar.Link href={"/about"}>About</Navbar.Link>
-                            {/*<Navbar.Link href={"/"}>My Stuff</Navbar.Link>*/}
+                            <Navbar.Link href={"/mystuff"}>My Stuff</Navbar.Link>
                             <Navbar.Item>
-                                <Button auto flat as={Link} href={"/enter"}>
+                                <Link href={"/enter"}>
+                                <Button auto flat>
                                     My Profile
                                 </Button>
+
+                                </Link>
+
                             </Navbar.Item>
                         </Navbar.Content>
-
                     </>
 
                 )}
@@ -47,7 +51,7 @@ export default function MyNavBar() {
 
                 {!user && (
                     <>
-                        <Navbar.Content hideIn={""}>
+                        <Navbar.Content >
                             <Navbar.Item>
                                 <Button auto flat as={Link} href={"/enter"}>
                                     Login / Sign Up

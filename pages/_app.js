@@ -3,8 +3,15 @@ import {Toaster} from "react-hot-toast";
 import {createTheme, NextUIProvider} from '@nextui-org/react'
 import {ThemeProvider as NextThemesProvider} from 'next-themes';
 import MyNavBar from "../components/MyNavBar";
+import dynamic from "next/dynamic";
 import {UserContext} from '../lib/context';
 import {useUserData} from "../lib/hooks";
+import {PacmanLoader} from "react-spinners";
+
+const NavBarNoSSR = dynamic(import('../components/MyNavBar'),{
+    // ssr: true,
+    ssr: false,
+});
 
 const lightTheme = createTheme({
     type: "light", theme: {
@@ -36,7 +43,8 @@ export default function App({Component, pageProps}) {
                     }}
                 >
                     <NextUIProvider>
-                        <MyNavBar/>
+                        <NavBarNoSSR/>
+                        {/*<MyNavBar/>*/}
                         <Component {...pageProps} />
                         <Toaster position={"bottom-right"} reverseOrder={false}/>
                     </NextUIProvider>

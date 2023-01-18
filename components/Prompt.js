@@ -1,11 +1,13 @@
-import React from 'react';
-import {Button, Text} from "@nextui-org/react";
+import React, {useContext} from 'react';
+import {Button, Input, Modal, Popover, Text} from "@nextui-org/react";
 import {Grid, Container, Dropdown, Spacer, Textarea} from "@nextui-org/react";
 import toast from "react-hot-toast";
+import {UserContext} from "../lib/context";
+import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
 
 
 const Prompt = () => {
-
+    const {user} = useContext(UserContext);
     // DROPDOWN MENU STUFF
     const [selectedGradeLevel, setSelectedGradeLevel] = React.useState(new Set(["Select Grade Level"]));
     const selectedGradeLevelValue = React.useMemo(
@@ -58,8 +60,42 @@ const Prompt = () => {
 
     }
 
+    async function sendToSavedText(content, gradeLevel, language = "English", title, notes) {
+        const loading = toast.loading("Saving...")
+        const uniqueID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const uid = user.uid;
+
+        const ref = doc(getFirestore(), 'saved_text', uniqueID); //TODO change to uniqueID later
+        const data = {
+            archived: false,
+            contents: content,
+            // original_text: original_text,
+            id: uniqueID,
+            user_display_name: user.displayName,
+            user_id: uid,
+            created_date: serverTimestamp(),
+            title: title,
+            notes: notes,
+            language: language,
+            grade_level: gradeLevel
+        };
+        await setDoc(ref, data);
+        toast.dismiss(loading);
+        toast.success("Saved to Your Stuff!")
+
+    }
+
+    //modal for saving data
+    const [isVisible, setIsVisible] = React.useState(false);
+    const [inputTitleValue, setInputTitleValue] = React.useState("");
+    const handler = () => setIsVisible(true);
+    const closeModalHandler = () => {
+        setIsVisible(false);
+    }
+
     return (
         <>
+
             <Container fluid>
 
                 <div id="result" className={"text-center"}>
@@ -140,9 +176,59 @@ const Prompt = () => {
 
                                 <Grid.Container justify={"center"}>
                                     <Grid alignItems={"center"}>
-                                        <Button color={"secondary"}>
+                                        <Button auto shadow color={"secondary"} onPress={handler}>
                                             Save to My Stuff
                                         </Button>
+                                        <Modal
+                                            closeButton
+                                            aria-labelledby="modal-title"
+                                            open={isVisible}
+                                            onClose={closeModalHandler}
+                                        >
+                                            <Modal.Header>
+                                                <Text id={"modal-title"} size={18}>
+                                                    Save to My Stuff
+                                                </Text>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <Input
+                                                    clearable
+                                                    underlined
+                                                    fullWidth
+                                                    color={"secondary"}
+                                                    size={"lg"}
+                                                    placeholder={"Enter a title for your text"}
+                                                    value={inputTitleValue}
+                                                    onChange={(event) => setInputTitleValue(event.target.value)}
+                                                />
+                                                <Input
+                                                    clearable
+                                                    underlined
+                                                    fullWidth
+                                                    color={"secondary"}
+                                                    size={"lg"}
+                                                    placeholder={"Enter any notes you'd like to add"}
+                                                />
+                                                <Button color={"secondary"} auto shadow onPress={(e) => {
+                                                    sendToSavedText(result, selectedGradeLevelValue, "English", inputTitleValue, "notes");
+                                                    //close modal
+                                                    closeModalHandler();
+                                                }}>
+                                                    Save
+
+                                                </Button>
+                                            </Modal.Body>
+                                        </Modal>
+
+                                        {/*<Button color={"secondary"}*/}
+                                        {/*        onPress={(e) => {*/}
+                                        {/*            sendToSavedText(result);*/}
+                                        {/*            console.log("sent to firestore");*/}
+                                        {/*        }*/}
+
+                                        {/*        }>*/}
+                                        {/*    Save to My Stuff*/}
+                                        {/*</Button>*/}
                                     </Grid>
                                 </Grid.Container>
 
@@ -153,8 +239,6 @@ const Prompt = () => {
                 </div>
 
             </Container>
-
-
         </>
     );
 };

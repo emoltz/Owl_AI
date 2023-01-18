@@ -12,8 +12,10 @@
   "dependencies": {
     "@next/font": "^13.1.0",
     "@nextui-org/react": "^1.0.0-beta.11",
+    "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
+    "firebase-admin": "^11.4.1",
     "firebase-tools": "^11.19.0",
     "next": "13.1.0",
     "next-env": "^1.1.1",
@@ -24,6 +26,7 @@
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-google-button": "^0.7.2",
+    "react-hook-form": "^7.41.5",
     "react-hot-toast": "^2.4.0",
     "react-spinners": "^0.13.7",
     "reactfire": "^4.2.2"
