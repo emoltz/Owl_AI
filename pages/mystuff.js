@@ -55,7 +55,7 @@ function MyStuff(props) {
             <Container>
                 {user ?
                     <h1>
-                        Welcome, {user.displayName}! <br/>
+                        Welcome, {user.displayName}! <br/> {/* NOTE    Also, you can use {userDisplayName} */}
                     </h1>
                     :
                     <Container>
