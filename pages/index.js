@@ -10,7 +10,7 @@ import Welcome from "../components/Welcome";
 
 
 export default function Home() {
-    const {user, username} = useContext(UserContext);
+    const user = useContext(UserContext);
 
     return (
         <>

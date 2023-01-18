@@ -9,7 +9,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 // TODO there is an issue here in the console that needs addressing
 // Top navbar
 export default function MyNavBar() {
-    const {user, username} = useContext(UserContext);
+    const user = useContext(UserContext)
     const [variant, setVariant] = React.useState("floating");
 
     // const user = true;
