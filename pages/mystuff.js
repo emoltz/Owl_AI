@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useModal, Container, Grid, Modal, Button, Text, Input, Row, Divider} from "@nextui-org/react";
-import {collectionGroup, getDocs, getFirestore, onSnapshot, orderBy, query, where} from "firebase/firestore";
-import {postToJSON} from "../lib/firebase";
+import {collectionGroup, getDocs, getFirestore, onSnapshot, orderBy, query, where, deleteDoc} from "firebase/firestore";
+import {postToJSON, deleteDocFromFirebase} from "../lib/firebase";
 import {UserContext} from "../lib/context";
-import {RotateLoader} from "react-spinners";
+import {PacmanLoader, RotateLoader} from "react-spinners";
 import {MyStuffCard} from "../components/MyStuffCard";
 import AuthCheck from "../components/AuthCheck";
 
@@ -48,50 +48,49 @@ function MyStuff(props) {
     }, [user])
 
     return (<>
-        <AuthCheck>
-            <Container fluid>
-                {user ? <h1>
-                    Welcome, {user?.displayName}! <br/>
-                </h1> : <Container>
-                    <RotateLoader color={"#000000"} loading={true} size={20}/>
-                </Container>}
+            <AuthCheck>
+                <Container fluid>
+                    {user ? <h1>
+                        Welcome, {user?.displayName}! <br/>
+                    </h1> : <Container>
+                        <RotateLoader color={"#000000"} loading={true} size={20}/>
+                    </Container>}
 
-            </Container>
+                </Container>
 
 
-            <Container>
-                {data ? data.map((doc) => {
-                    if (doc.user_id === user?.uid) {
-                        return (<div key={doc.id}>
-                                <Grid.Container gap={2} justify={"center"}>
-                                    <Grid xs>
-                                        <MyStuffCard
-                                            id={doc.id}
-                                            pressAction={() => handler(doc.id)}
-                                            cardLevel={doc.grade_level}
-                                            cardTitle={doc.title}
-                                            cardContents={doc.contents}
-                                            cardDate={(new Date(doc.created_date).toLocaleDateString())}
-                                        />
-                                    </Grid>
-                                </Grid.Container>
-                            </div>
+                <Container>
+                    {res ? res.map((doc) => {
+                        if (doc.user_id === user?.uid) {
+                            return (<div key={doc.id}>
+                                    <Grid.Container gap={2} justify={"center"}>
+                                        <Grid xs>
+                                            <MyStuffCard
+                                                id={doc.id}
+                                                pressAction={() => handler(doc.id)}
+                                                cardLevel={doc.grade_level}
+                                                cardTitle={doc.title}
+                                                cardContents={doc.contents}
+                                                cardDate={(new Date(doc.created_date).toLocaleDateString())}
+                                            />
+                                        </Grid>
+                                    </Grid.Container>
+                                </div>
 
-                        )
+                            )
+                        }
+
+                    }) : <PacmanLoader/>
+
                     }
+                </Container>
 
-                }) : <div>
-                    Loading...
-                </div>}
-            </Container>
+                {/*    MODAL*/}
 
-            {/*    MODAL*/}
+                {data.map((doc) => {
 
-            {data.map((doc) => {
-
-                if (doc.id === cardID) {
-                    return (
-                        <div key={doc.id}>
+                    if (doc.id === cardID) {
+                        return (<div key={doc.id}>
                             <Modal
                                 scroll={true}
                                 width={"600px"}
@@ -112,36 +111,41 @@ function MyStuff(props) {
                                         {doc.contents}
                                     </Text>
                                     <Divider/>
-                                    <Text style={
-                                        {
-                                            background: "#f5f5f5",
-                                            padding: "10px",
-                                        }
-                                    }>{doc.notes}</Text>
+                                    <Text style={{
+                                        background: "#f5f5f5", padding: "10px",
+                                    }}>{doc.notes}</Text>
                                 </Modal.Body>
                                 <Modal.Footer>
+                                    <Button
+                                        onPress={() => {
+                                            deleteDocFromFirebase("saved_text", doc.id).then(r => {
+                                                console.log(r);
+                                            });
+                                            setVisible(false);
 
-                                    <Button onPress={
-                                        () => {
-                                            console.log("Edit button pressed")
-                                        }
-                                    }>
+
+                                        }}
+                                        flat color={"error"}>
+
+                                        Delete
+                                    </Button>
+                                    <Button onPress={() => {
+                                        console.log("Edit button pressed")
+                                    }}>
                                         Edit
                                     </Button>
                                 </Modal.Footer>
 
                             </Modal>
-                        </div>
-                    )
-                }
-            })}
+                        </div>)
+                    }
+                })}
 
 
-        </AuthCheck>
-    </>
+            </AuthCheck>
+        </>
 
-)
-;
+    );
 }
 
 export default MyStuff;
