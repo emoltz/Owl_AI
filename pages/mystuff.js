@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Container, Divider} from "@nextui-org/react";
+import {Container, Divider, Grid, Text} from "@nextui-org/react";
 import {collectionGroup, getDocs, getFirestore, onSnapshot, orderBy, query, where} from "firebase/firestore";
 import {auth, getCurrentUser, postToJSON} from "../lib/firebase";
 import {UserContext} from "../lib/context";
