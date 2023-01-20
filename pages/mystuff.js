@@ -5,6 +5,7 @@ import {auth, getCurrentUser, postToJSON} from "../lib/firebase";
 import {UserContext} from "../lib/context";
 import {RotateLoader} from "react-spinners";
 import {MyStuffCard} from "../components/MyStuffCard";
+import AuthCheck from "../components/AuthCheck";
 
 
 export async function getServerSideProps(context) {
@@ -71,42 +72,41 @@ function MyStuff(props) {
 
     return (
         <>
-            <Container fluid>
-                 {user ?
-                    <h1>
-                        Welcome, {user?.displayName}! <br/>
-                    </h1>
-                    :
-                    <Container>
-                        <RotateLoader color={"#000000"} loading={true} size={20}/>
-                    </Container>
-                }
+            <AuthCheck>
+                <Container fluid>
+                    {user ?
+                        <h1>
+                            Welcome, {user?.displayName}! <br/>
+                        </h1>
+                        :
+                        <Container>
+                            <RotateLoader color={"#000000"} loading={true} size={20}/>
+                        </Container>
+                    }
 
-            </Container>
+                </Container>
 
 
+                <Container>
+                    {data ?
+                        data.map((doc) => {
+                            if (doc.user_id === user?.uid) {
+                                return (
+                                    <div key={doc.id}>
+                                        <MyStuffCard cardLevel={doc.grade_level} cardTitle={doc.title}
+                                                     cardContents={doc.contents}
+                                        />
+                                    </div>
+                                )
+                            }
 
-
-            <Container>
-                {data ?
-                    data.map((doc) => {
-                        if (doc.user_id === user?.uid) {
-                            return (
-                                <div key={doc.id}>
-                                    <MyStuffCard cardLevel={doc.grade_level} cardTitle={doc.title}
-                                                 cardContents={doc.contents}
-                                    />
-                                </div>
-                            )
-                        }
-
-                    }) :
-                    <div>
-                        Loading...
-                    </div>
-                }
-            </Container>
-
+                        }) :
+                        <div>
+                            Loading...
+                        </div>
+                    }
+                </Container>
+            </AuthCheck>
         </>
 
     );
