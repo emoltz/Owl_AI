@@ -6,15 +6,12 @@ const Card2 = () => (
         <>
             <Card isHoverable isPressable>
                 <Card.Header >
-                    <Text css={{fontWeight: "bold"}}>Welcome to Owl.ai, an auto differentiation tool for educators.</Text>
+                    <Text css={{fontWeight: "bold"}}>Welcome to Owl.ai, an auto-differentiation tool for educators.</Text>
 
                 </Card.Header>
                 <Card.Body>
 
-                    We understand that reading can be a challenge for some students, which
-                    is why we have developed a tool to help.
-
-                    Our website takes reading text and uses machine learning to scaffold it to different reading levels.
+                    Owl.ai takes reading text and uses machine learning to scaffold it to different reading levels.
                     This means that you can input a piece of text and select the desired reading level, and our tool will
                     adjust the text to match that level.
 
@@ -22,7 +19,7 @@ const Card2 = () => (
                     looking to differentiate instruction for their students.
                 </Card.Body>
                 <Card.Footer >
-                    To get started, signup and login above.
+                    To get started, signup or login above.
                 </Card.Footer>
             </Card>
         </>
