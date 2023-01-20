@@ -92,18 +92,26 @@ function MyStuff(props) {
                         data.map((doc) => {
                             if (doc.user_id === user?.uid) {
                                 return (
-                                    <div key={doc.id}>
-                                        <MyStuffCard cardLevel={doc.grade_level} cardTitle={doc.title}
-                                                     cardContents={doc.contents}
-                                        />
-                                    </div>
+                                    <>
+                                        <Grid.Container gap={2} justify={"center"}>
+                                            <Grid xs>
+
+                                                <div key={doc.id}>
+                                                    <MyStuffCard cardLevel={doc.grade_level} cardTitle={doc.title}
+                                                                 cardContents={doc.contents}
+                                                    />
+                                                </div>
+                                            </Grid>
+                                        </Grid.Container>
+                                    </>
+
                                 )
                             }
 
-                        }) :
-                        <div>
-                            Loading...
-                        </div>
+                    }) :
+                    <div>
+                        Loading...
+                    </div>
                     }
                 </Container>
             </AuthCheck>
@@ -112,4 +120,4 @@ function MyStuff(props) {
     );
 }
 
-export default MyStuff;
+    export default MyStuff;
