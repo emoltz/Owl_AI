@@ -5,10 +5,13 @@ import {ThemeProvider as NextThemesProvider} from 'next-themes';
 import MyNavBar from "../components/MyNavBar";
 import dynamic from "next/dynamic";
 import {UserContext} from '../lib/context';
+import {auth} from '../lib/firebase';
 import {useUserData} from "../lib/hooks";
-import {PacmanLoader} from "react-spinners";
+import {useAuthState} from "react-firebase-hooks/auth";
 
-const NavBarNoSSR = dynamic(import('../components/MyNavBar'),{
+
+
+const NavBarNoSSR = dynamic(import('../components/MyNavBar'), {
     // ssr: true,
     ssr: false,
 });
@@ -31,28 +34,25 @@ const darkTheme = createTheme({
 });
 
 export default function App({Component, pageProps}) {
-
-    const userData = useUserData();
+    const [user] = useAuthState(auth);
     return (<>
-            <UserContext.Provider value={userData}>
-                <NextThemesProvider
-                    defaultTheme={"system"}
-                    attribute="class"
-                    value={{
-                        light: lightTheme.className, dark: darkTheme.className,
-                    }}
-                >
-                    <NextUIProvider>
+            <NextThemesProvider
+                defaultTheme={"system"}
+                attribute="class"
+                value={{
+                    light: lightTheme.className, dark: darkTheme.className,
+                }}
+            >
+                <NextUIProvider>
+                    <UserContext.Provider value={user}>
                         <NavBarNoSSR/>
                         {/*<MyNavBar/>*/}
                         <Component {...pageProps} />
                         <Toaster position={"bottom-right"} reverseOrder={false}/>
-                    </NextUIProvider>
+                    </UserContext.Provider>
+                </NextUIProvider>
 
-                </NextThemesProvider>
-
-
-            </UserContext.Provider>
+            </NextThemesProvider>
 
 
         </>

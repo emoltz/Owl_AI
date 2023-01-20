@@ -14,9 +14,9 @@ export function MyStuffCard({cardTitle, cardContents, cardLevel, cardDate}) {
                             <br/>
                             {cardLevel}
                             <br/>
-                            <Text i>
-                                {cardDate}
-                            </Text>
+                            {/*<Text i>*/}
+                            {/*    {cardDate}*/}
+                            {/*</Text>*/}
                         </Text>
 
                     </Card.Header>

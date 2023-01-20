@@ -8,7 +8,7 @@ import {Grid, Card} from "@nextui-org/react";
 import Link from "next/link";
 
 export default function Enter(props) {
-    const {user, username} = useContext(UserContext);
+    const user = useContext(UserContext);
 
     return (
         <>
