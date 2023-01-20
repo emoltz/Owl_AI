@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Container, Divider, Grid, Text} from "@nextui-org/react";
+import {Container, Grid} from "@nextui-org/react";
 import {collectionGroup, getDocs, getFirestore, onSnapshot, orderBy, query, where} from "firebase/firestore";
-import {auth, getCurrentUser, postToJSON} from "../lib/firebase";
+import {postToJSON} from "../lib/firebase";
 import {UserContext} from "../lib/context";
 import {RotateLoader} from "react-spinners";
 import {MyStuffCard} from "../components/MyStuffCard";
@@ -25,6 +25,7 @@ function MyStuff(props) {
     const user = useContext(UserContext);
     const [data, setData] = useState(props.data);
     const [res, setRes] = useState(null);
+
 
     useEffect(() => {
         if (user?.uid) {
@@ -68,8 +69,6 @@ function MyStuff(props) {
     //     }
     // )
 
-    console.log(user?.uid)
-
     return (
         <>
             <AuthCheck>
@@ -92,18 +91,15 @@ function MyStuff(props) {
                         data.map((doc) => {
                             if (doc.user_id === user?.uid) {
                                 return (
-                                    <>
+                                    <div key={doc.id}>
                                         <Grid.Container gap={2} justify={"center"}>
                                             <Grid xs>
-
-                                                <div key={doc.id}>
                                                     <MyStuffCard cardLevel={doc.grade_level} cardTitle={doc.title}
-                                                                 cardContents={doc.contents}
+                                                                 cardContents={doc.contents} cardDate={(new Date(doc.created_date).toDateString())}
                                                     />
-                                                </div>
                                             </Grid>
                                         </Grid.Container>
-                                    </>
+                                    </div>
 
                                 )
                             }
