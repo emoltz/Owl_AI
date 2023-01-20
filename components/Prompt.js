@@ -100,7 +100,6 @@ const Prompt = () => {
 
                 <div id="result" className={"text-center"}>
                     <Spacer y={4}/>
-                    {/*<h1>Owl.ai </h1>*/}
                     <form action={""} method={"POST"} onSubmit={handleSubmit}>
                         <Textarea
                             bordered
@@ -166,85 +165,69 @@ const Prompt = () => {
                                 <Button type={"submit"}>Generate</Button>
                             </Grid>
                         </Grid.Container>
-
-
-
-
-
-
-
-
-
-
-                        {/*RESULTS:*/}
-                        {result &&
-                            <>
-                                <Spacer y={2}/>
-                                <Text blockquote
-                                      id="result"> {result} </Text>
-
-                                <Grid.Container justify={"center"}>
-                                    <Grid alignItems={"center"}>
-                                        <Button auto shadow color={"secondary"} onPress={handler}>
-                                            Save to My Stuff
-                                        </Button>
-                                        <Modal
-                                            closeButton
-                                            aria-labelledby="modal-title"
-                                            open={isVisible}
-                                            onClose={closeModalHandler}
-                                        >
-                                            <Modal.Header>
-                                                <Text id={"modal-title"} size={18}>
-                                                    Save to My Stuff
-                                                </Text>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                <Input
-                                                    clearable
-                                                    underlined
-                                                    fullWidth
-                                                    color={"secondary"}
-                                                    size={"lg"}
-                                                    placeholder={"Enter a title for your text"}
-                                                    value={inputTitleValue}
-                                                    onChange={(event) => setInputTitleValue(event.target.value)}
-                                                />
-                                                <Input
-                                                    clearable
-                                                    underlined
-                                                    fullWidth
-                                                    color={"secondary"}
-                                                    size={"lg"}
-                                                    placeholder={"Enter any notes you'd like to add"}
-                                                />
-                                                <Button color={"secondary"} auto shadow onPress={(e) => {
-                                                    sendToSavedText(result, selectedGradeLevelValue, "English", inputTitleValue, "notes");
-                                                    //close modal
-                                                    closeModalHandler();
-                                                }}>
-                                                    Save
-
-                                                </Button>
-                                            </Modal.Body>
-                                        </Modal>
-
-                                        {/*<Button color={"secondary"}*/}
-                                        {/*        onPress={(e) => {*/}
-                                        {/*            sendToSavedText(result);*/}
-                                        {/*            console.log("sent to firestore");*/}
-                                        {/*        }*/}
-
-                                        {/*        }>*/}
-                                        {/*    Save to My Stuff*/}
-                                        {/*</Button>*/}
-                                    </Grid>
-                                </Grid.Container>
-
-
-                            </>
-                        }
                     </form>
+
+
+
+                    {result &&
+                        <>
+                            <Spacer y={2}/>
+                            <Text blockquote
+                                  id="result"> {result} </Text>
+
+                            <Grid.Container justify={"center"}>
+                                <Grid alignItems={"center"}>
+                                    <Button auto shadow color={"secondary"} onPress={handler}>
+                                        Save to My Stuff
+                                    </Button>
+                                    <Modal
+                                        closeButton
+                                        aria-labelledby="modal-title"
+                                        open={isVisible}
+                                        onClose={closeModalHandler}
+                                    >
+                                        <Modal.Header>
+                                            <Text id={"modal-title"} size={18}>
+                                                Save to My Stuff
+                                            </Text>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <Input
+                                                clearable
+                                                underlined
+                                                fullWidth
+                                                color={"secondary"}
+                                                size={"lg"}
+                                                placeholder={"Enter a title for your text"}
+                                                value={inputTitleValue}
+                                                onChange={(event) => setInputTitleValue(event.target.value)}
+                                            />
+                                            <Input
+                                                clearable
+                                                underlined
+                                                fullWidth
+                                                color={"secondary"}
+                                                size={"lg"}
+                                                placeholder={"Enter any notes you'd like to add"}
+                                            />
+                                            <Button color={"secondary"} auto shadow onPress={(e) => {
+                                                sendToSavedText(result, selectedGradeLevelValue, "English", inputTitleValue, "notes");
+                                                //close modal
+                                                closeModalHandler();
+                                            }}>
+                                                Save
+
+                                            </Button>
+                                        </Modal.Body>
+                                    </Modal>
+
+                                </Grid>
+                            </Grid.Container>
+
+
+                        </>
+                    }
+
                 </div>
 
             </Container>

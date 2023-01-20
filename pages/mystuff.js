@@ -11,6 +11,7 @@ export async function getServerSideProps(context) {
     const ref = collectionGroup(getFirestore(), 'saved_text')
     const q = query(
         ref,
+        orderBy('created_date', 'desc')
     )
     const data = (await getDocs(q)).docs.map(postToJSON);
     return {
