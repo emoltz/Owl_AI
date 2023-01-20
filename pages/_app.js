@@ -8,6 +8,7 @@ import {UserContext} from '../lib/context';
 import {auth} from '../lib/firebase';
 import {useUserData} from "../lib/hooks";
 import {useAuthState} from "react-firebase-hooks/auth";
+import Footer from "../components/Footer";
 
 
 
@@ -48,6 +49,7 @@ export default function App({Component, pageProps}) {
                         <NavBarNoSSR/>
                         {/*<MyNavBar/>*/}
                         <Component {...pageProps} />
+                        <Footer/>
                         <Toaster position={"bottom-right"} reverseOrder={false}/>
                     </UserContext.Provider>
                 </NextUIProvider>
