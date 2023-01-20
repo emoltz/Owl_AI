@@ -70,8 +70,8 @@ function MyStuff(props) {
 
     return (
         <>
-            <Container>
-                {user ?
+            <Container fluid>
+                 {user ?
                     <h1>
                         Welcome, {user?.displayName}! <br/>
                     </h1>
@@ -80,7 +80,10 @@ function MyStuff(props) {
                         <RotateLoader color={"#000000"} loading={true} size={20}/>
                     </Container>
                 }
+
             </Container>
+
+
 
 
             <Container>

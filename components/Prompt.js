@@ -7,7 +7,7 @@ import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
 
 
 const Prompt = () => {
-    const {user} = useContext(UserContext);
+    const user = useContext(UserContext);
     // DROPDOWN MENU STUFF
     const [selectedGradeLevel, setSelectedGradeLevel] = React.useState(new Set(["Select Grade Level"]));
     const selectedGradeLevelValue = React.useMemo(
@@ -65,7 +65,7 @@ const Prompt = () => {
         const uniqueID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         const uid = user.uid;
 
-        const ref = doc(getFirestore(), 'saved_text', uniqueID); //TODO change to uniqueID later
+        const ref = doc(getFirestore(), 'saved_text', uniqueID);
         const data = {
             archived: false,
             contents: content,
@@ -166,6 +166,15 @@ const Prompt = () => {
                                 <Button type={"submit"}>Generate</Button>
                             </Grid>
                         </Grid.Container>
+
+
+
+
+
+
+
+
+
 
                         {/*RESULTS:*/}
                         {result &&
