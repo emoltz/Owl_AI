@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {Button, Input, Modal, Popover, Text} from "@nextui-org/react";
-import {Grid, Container, Dropdown, Spacer, Textarea} from "@nextui-org/react";
+import {Grid, Container, Dropdown, Spacer, Textarea, useInput} from "@nextui-org/react";
 import toast from "react-hot-toast";
 import {UserContext} from "../lib/context";
-import {doc, getFirestore, serverTimestamp, setDoc} from "firebase/firestore";
+import {sendToSavedText} from "../lib/firebase";
 
 
 const Prompt = () => {
@@ -25,17 +25,9 @@ const Prompt = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-
         // get grade level text from selectedGradeLevel set
         const gradeLevel = selectedGradeLevelValue;
         let language = selectedLanguageValue;
-
-        //catch if gradelevel and language are set to default values of "Select Grade Level" and "Select Language"
-        // if (gradeLevel.has("Select Grade Level")) {
-        //     toast.error("Please select a grade level.");
-        //     return;
-        // }
 
         const data = new FormData(event.target);
 
@@ -53,37 +45,14 @@ const Prompt = () => {
             }),
         });
         toast.dismiss(toastId)
-        toast.success("Success!")
+        toast.success("Success! Scroll down to see results.")
 
         const {text} = await response.json();
         setResult(text);
 
     }
 
-    async function sendToSavedText(content, gradeLevel, language = "English", title, notes) {
-        const loading = toast.loading("Saving...")
-        const uniqueID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        const uid = user.uid;
 
-        const ref = doc(getFirestore(), 'saved_text', uniqueID);
-        const data = {
-            archived: false,
-            contents: content,
-            // original_text: original_text,
-            id: uniqueID,
-            user_display_name: user.displayName,
-            user_id: uid,
-            created_date: serverTimestamp(),
-            title: title,
-            notes: notes,
-            language: language,
-            grade_level: gradeLevel
-        };
-        await setDoc(ref, data);
-        toast.dismiss(loading);
-        toast.success("Saved to Your Stuff!")
-
-    }
 
     //modal for saving data
     const [isVisible, setIsVisible] = React.useState(false);
@@ -93,6 +62,7 @@ const Prompt = () => {
     const closeModalHandler = () => {
         setIsVisible(false);
     }
+    const [inputText, setInputText] = React.useState("")
 
     return (
         <>
@@ -111,9 +81,10 @@ const Prompt = () => {
                             minRows={2}
                             maxRows={100}
                             fullWidth={true}
+                            // value={inputText}
+                            onChange={(e) => setInputText(e.target.value)}
 
                         />
-
                         <Spacer y={1}/>
                         <Grid.Container justify={"center"}>
 
@@ -214,7 +185,9 @@ const Prompt = () => {
                                                 placeholder={"Enter any notes you'd like to add"}
                                             />
                                             <Button color={"secondary"} auto shadow onPress={(e) => {
-                                                sendToSavedText(result, selectedGradeLevelValue, "English", inputTitleValue, notesValue);
+                                                sendToSavedText(result, selectedGradeLevelValue, "English", inputTitleValue, notesValue, inputText).then(r => {
+                                                    toast.success("Success! Text saved to My Stuff.")
+                                                });
                                                 //close modal
                                                 closeModalHandler();
                                             }}>

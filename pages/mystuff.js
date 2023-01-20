@@ -71,7 +71,8 @@ function MyStuff(props) {
                                                 cardLevel={doc.grade_level}
                                                 cardTitle={doc.title}
                                                 cardContents={doc.contents}
-                                                cardDate={(new Date(doc.created_date).toLocaleDateString())}
+                                                // cardDate={(new Date(doc.created_date).toLocaleDateString())}
+                                                // TODO figure out the date issue here
                                             />
                                         </Grid>
                                     </Grid.Container>
