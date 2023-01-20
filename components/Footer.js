@@ -23,9 +23,7 @@ export default function Footer() {
                                             i
                                             css={{
                                                 textAlign: "center",
-                                                fontSize: "1.2rem",
                                                 color: "gray",
-
                                             }}
                                         >
 
@@ -33,17 +31,17 @@ export default function Footer() {
 
 
                                         </Text>
-                                        <Link href={"https://github.com/emoltz/Owl_AI"}>
-                                            <Text
-                                                css={
-                                                    {
-                                                        textAlign: "center",
-                                                    }
+                                        <Text
+                                            css={
+                                                {
+                                                    textAlign: "center",
                                                 }
-                                            >
+                                            }
+                                        >
+                                            <Link href={"https://github.com/emoltz/Owl_AI"}>
                                                 Open Source on Github
-                                            </Text>
-                                        </Link>
+                                            </Link>
+                                        </Text>
                                     </div>
                                 </Grid>
                             </Grid.Container>
