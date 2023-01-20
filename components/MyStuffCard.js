@@ -1,10 +1,10 @@
 import {Card, Grid, Text} from "@nextui-org/react";
 import React from "react";
 
-export function MyStuffCard({cardTitle, cardContents, cardLevel, cardDate}) {
+export function MyStuffCard({id, cardTitle, cardContents, cardLevel, cardDate, pressAction}) {
     return (
 
-                <Card isPressable isHoverable css={{mw: "100%"}}>
+                <Card onPress={pressAction} isPressable isHoverable css={{mw: "100%"}}>
                     <Card.Header>
                         <Text>
                             <Text b>

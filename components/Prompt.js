@@ -88,6 +88,7 @@ const Prompt = () => {
     //modal for saving data
     const [isVisible, setIsVisible] = React.useState(false);
     const [inputTitleValue, setInputTitleValue] = React.useState("");
+    const [notesValue, setNotesValue] = React.useState("");
     const handler = () => setIsVisible(true);
     const closeModalHandler = () => {
         setIsVisible(false);
@@ -208,10 +209,12 @@ const Prompt = () => {
                                                 fullWidth
                                                 color={"secondary"}
                                                 size={"lg"}
+                                                value={notesValue}
+                                                onChange={(event) => setNotesValue(event.target.value)}
                                                 placeholder={"Enter any notes you'd like to add"}
                                             />
                                             <Button color={"secondary"} auto shadow onPress={(e) => {
-                                                sendToSavedText(result, selectedGradeLevelValue, "English", inputTitleValue, "notes");
+                                                sendToSavedText(result, selectedGradeLevelValue, "English", inputTitleValue, notesValue);
                                                 //close modal
                                                 closeModalHandler();
                                             }}>
