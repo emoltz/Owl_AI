@@ -30,13 +30,13 @@ export default function MyNavBar() {
                     <>
                         <Navbar.Content hideIn={"smMax"}>
                             <ThemeSwitcher/>
-                            <Navbar.Link href={"/about"}>About</Navbar.Link>
+                            <Navbar.Link href={"/"}>Home</Navbar.Link>
                             <Navbar.Link href={"/mystuff"}>My Stuff</Navbar.Link>
                             <Navbar.Item>
                                 <Link href={"/enter"}>
-                                <Button auto flat>
-                                    My Profile
-                                </Button>
+                                    <Button auto flat>
+                                        My Profile
+                                    </Button>
 
                                 </Link>
 
@@ -51,7 +51,7 @@ export default function MyNavBar() {
 
                 {!user && (
                     <>
-                        <Navbar.Content >
+                        <Navbar.Content>
                             <Navbar.Item>
                                 <Button auto flat as={Link} href={"/enter"}>
                                     Login / Sign Up

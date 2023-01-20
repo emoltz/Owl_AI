@@ -3,8 +3,7 @@ import React from "react";
 
 export function MyStuffCard({cardTitle, cardContents, cardLevel, cardDate}) {
     return (
-        <Grid.Container gap={2}>
-            <Grid sm={12} md={5}>
+
                 <Card isPressable isHoverable css={{mw: "100%"}}>
                     <Card.Header>
                         <Text>
@@ -14,9 +13,9 @@ export function MyStuffCard({cardTitle, cardContents, cardLevel, cardDate}) {
                             <br/>
                             {cardLevel}
                             <br/>
-                            {/*<Text i>*/}
-                            {/*    {cardDate}*/}
-                            {/*</Text>*/}
+                            <Text i>
+                                {cardDate}
+                            </Text>
                         </Text>
 
                     </Card.Header>
@@ -28,7 +27,6 @@ export function MyStuffCard({cardTitle, cardContents, cardLevel, cardDate}) {
                     </Card.Body>
                     <Card.Divider/>
                 </Card>
-            </Grid>
-        </Grid.Container>
+
     )
 }

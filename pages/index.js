@@ -5,6 +5,7 @@ import Prompt from "../components/Prompt";
 import {useContext} from "react";
 import {UserContext} from "../lib/context";
 import Welcome from "../components/Welcome";
+import Footer from "../components/Footer";
 
 
 
