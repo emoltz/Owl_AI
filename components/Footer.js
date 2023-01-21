@@ -2,6 +2,7 @@ import React from "react";
 import {useContext} from "react";
 import {Card, Grid, Spacer, Text} from "@nextui-org/react";
 import Link from "next/link";
+import Coffee from "./Coffee";
 
 
 export default function Footer() {
@@ -41,8 +42,14 @@ export default function Footer() {
                                             <Link href={"https://github.com/emoltz/Owl_AI"}>
                                                 Open Source on Github
                                             </Link>
+
                                         </Text>
+
+                                        <Coffee/>
+
+
                                     </div>
+
                                 </Grid>
                             </Grid.Container>
                         </Grid>

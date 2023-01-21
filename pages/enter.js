@@ -1,13 +1,13 @@
-import {auth} from '../lib/firebase';
+import {auth, saveUserToFirebase} from '../lib/firebase';
 import {UserContext} from "../lib/context";
 import {Button, Spacer} from "@nextui-org/react";
 import {useContext} from "react";
 import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import GoogleButton from "react-google-button";
-import {Grid, Card} from "@nextui-org/react";
+import {Grid} from "@nextui-org/react";
 import Link from "next/link";
 
-export default function Enter(props) {
+export default function Enter() {
     const user = useContext(UserContext);
 
     return (
@@ -46,6 +46,7 @@ function SignInButton() {
             onClick={async () => {
                 const googleProvider = new GoogleAuthProvider();
                 await signInWithPopup(auth, googleProvider);
+                await saveUserToFirebase(auth.currentUser);
             }
             }/>
     );
@@ -53,8 +54,4 @@ function SignInButton() {
 
 function SignOutButton() {
     return <Button color={"secondary"} onClick={() => auth.signOut()}>Sign Out</Button>;
-}
-
-function UsernameForm() {
-    return null;
 }
