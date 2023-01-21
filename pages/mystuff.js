@@ -133,10 +133,19 @@ function MyStuff(props) {
                                         Delete
                                     </Button>
                                     <Button onPress={() => {
-                                        console.log("Edit button pressed")
-                                    }}>
-                                        Edit
+                                        navigator.clipboard.writeText(doc.contents).then(r => {
+                                            console.log("Text copied to clipboard");
+                                        });
+                                    }
+                                    }>
+                                        Copy Text
                                     </Button>
+                                    {/*TODO Edit button*/}
+                                    {/*<Button onPress={() => {*/}
+                                    {/*    console.log("Edit button pressed")*/}
+                                    {/*}}>*/}
+                                    {/*    Edit*/}
+                                    {/*</Button>*/}
                                 </Modal.Footer>
 
                             </Modal>
