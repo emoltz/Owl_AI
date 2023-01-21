@@ -32,6 +32,8 @@ function MyStuff(props) {
         console.log(cardID);
     }
 
+    // EDITING NOTES
+
 
     useEffect(() => {
         if (user?.uid) {
@@ -60,11 +62,11 @@ function MyStuff(props) {
 
 
                 <Container>
-                    {res ? res.map((doc) => {
-                        if (doc.user_id === user?.uid) {
-                            return (<div key={doc.id}>
-                                    <Grid.Container gap={2} justify={"center"}>
-                                        <Grid xs>
+                    <Grid.Container gap={2} justify={"center"}>
+                        {res ? res.map((doc) => {
+                            if (doc.user_id === user?.uid) {
+                                return (
+                                        <Grid xs={4} key={doc.id}>
                                             <MyStuffCard
                                                 id={doc.id}
                                                 pressAction={() => handler(doc.id)}
@@ -75,15 +77,15 @@ function MyStuff(props) {
                                                 // TODO figure out the date issue here
                                             />
                                         </Grid>
-                                    </Grid.Container>
-                                </div>
 
-                            )
+
+                                )
+                            }
+
+                        }) : <PacmanLoader/>
+
                         }
-
-                    }) : <PacmanLoader/>
-
-                    }
+                    </Grid.Container>
                 </Container>
 
                 {/*    MODAL*/}
