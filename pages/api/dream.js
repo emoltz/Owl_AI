@@ -25,7 +25,7 @@ export default async function handler(req, res){
     const aiResponse = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: prompt,
-        max_tokens: 700,
+        max_tokens: 1500,
         temperature: 0,
     });
     const text = aiResponse.data.choices[0].text;
