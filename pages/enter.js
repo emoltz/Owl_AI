@@ -1,4 +1,4 @@
-import {auth} from '../lib/firebase';
+import {auth, saveUserToFirebase} from '../lib/firebase';
 import {UserContext} from "../lib/context";
 import {Button, Spacer} from "@nextui-org/react";
 import {useContext} from "react";
@@ -46,6 +46,7 @@ function SignInButton() {
             onClick={async () => {
                 const googleProvider = new GoogleAuthProvider();
                 await signInWithPopup(auth, googleProvider);
+                await saveUserToFirebase(auth.currentUser);
             }
             }/>
     );
