@@ -8,14 +8,14 @@ import {MyStuffCard} from "../components/MyStuffCard";
 import AuthCheck from "../components/AuthCheck";
 
 
-export async function getServerSideProps(context) {
-    const ref = collectionGroup(getFirestore(), 'saved_text')
-    const q = query(ref, orderBy('created_date', 'desc'))
-    const data = (await getDocs(q)).docs.map(postToJSON);
-    return {
-        props: {data},
-    }
-}
+// export async function getServerSideProps(context) {
+//     const ref = collectionGroup(getFirestore(), 'saved_text')
+//     const q = query(ref, orderBy('created_date', 'desc'))
+//     const data = (await getDocs(q)).docs.map(postToJSON);
+//     return {
+//         props: {data},
+//     }
+// }
 
 
 function MyStuff(props) {
@@ -70,8 +70,7 @@ function MyStuff(props) {
                         {res ? res.map((doc) => {
                             if (doc.user_id === user?.uid) {
 
-                                return (
-                                    <Grid xs={4} key={doc.id}>
+                                return (<Grid xs={4} key={doc.id}>
                                         <MyStuffCard
                                             id={doc.id}
                                             pressAction={() => handler(doc.id)}
@@ -95,7 +94,7 @@ function MyStuff(props) {
 
                 {/*    MODAL*/}
 
-                {data.map((doc) => {
+                {res ? res.map((doc) => {
 
                     if (doc.id === cardID) {
                         return (<div key={doc.id}>
@@ -121,8 +120,7 @@ function MyStuff(props) {
                                     </Text>
 
                                     <Spacer y={1}/>
-                                    {editingNotes ?
-                                        <Input
+                                    {editingNotes ? <Input
                                             color={"secondary"}
                                             labelLeft={"Editing"}
                                             status={"default"}
@@ -136,7 +134,7 @@ function MyStuff(props) {
 
                                         <Text
                                             onClick={() => setEditingNotes(!editingNotes)}
-                                            style={{background: "#f5f5f5", padding: "10px"}}
+                                            style={{ padding: "10px"}}
                                         >
                                             {doc.notes}
                                         </Text>
@@ -164,14 +162,13 @@ function MyStuff(props) {
                                         navigator.clipboard.writeText(doc.contents).then(r => {
                                             console.log("Text copied to clipboard");
                                         });
-                                    }
-                                    }>
+                                    }}>
                                         Copy Text
                                     </Button>
-                                    {/*TODO Edit button*/}
                                     <Button size="sm" onPress={() => {
                                         console.log("Edit button pressed")
                                     }}>
+                                        {/*TODO make this save to db*/}
                                         Save
                                     </Button>
                                 </Modal.Footer>
@@ -179,7 +176,9 @@ function MyStuff(props) {
                             </Modal>
                         </div>)
                     }
-                })}
+                }) : <>
+                    <PacmanLoader/>
+                </>}
 
             </AuthCheck>
         </>
