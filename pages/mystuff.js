@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useModal, Container, Grid, Modal, Button, Text, Input, Row, Divider} from "@nextui-org/react";
-import {collectionGroup, getDocs, getFirestore, onSnapshot, orderBy, query, where, deleteDoc} from "firebase/firestore";
+import {useModal, Container, Grid, Modal, Button, Text, Input, Divider, Spacer} from "@nextui-org/react";
+import {collectionGroup, getDocs, getFirestore, onSnapshot, orderBy, query, where} from "firebase/firestore";
 import {postToJSON, deleteDocFromFirebase} from "../lib/firebase";
 import {UserContext} from "../lib/context";
 import {PacmanLoader, RotateLoader} from "react-spinners";
@@ -8,14 +8,14 @@ import {MyStuffCard} from "../components/MyStuffCard";
 import AuthCheck from "../components/AuthCheck";
 
 
-export async function getServerSideProps(context) {
-    const ref = collectionGroup(getFirestore(), 'saved_text')
-    const q = query(ref, orderBy('created_date', 'desc'))
-    const data = (await getDocs(q)).docs.map(postToJSON);
-    return {
-        props: {data},
-    }
-}
+// export async function getServerSideProps(context) {
+//     const ref = collectionGroup(getFirestore(), 'saved_text')
+//     const q = query(ref, orderBy('created_date', 'desc'))
+//     const data = (await getDocs(q)).docs.map(postToJSON);
+//     return {
+//         props: {data},
+//     }
+// }
 
 
 function MyStuff(props) {
@@ -34,7 +34,11 @@ function MyStuff(props) {
 
     // EDITING NOTES
 
+    const [editingNotes, setEditingNotes] = useState(false);
+    const [notes, setNotes] = useState(null);
 
+
+    // USE EFFECT HOOK
     useEffect(() => {
         if (user?.uid) {
             const ref = collectionGroup(getFirestore(), 'saved_text')
@@ -65,18 +69,18 @@ function MyStuff(props) {
                     <Grid.Container gap={2} justify={"center"}>
                         {res ? res.map((doc) => {
                             if (doc.user_id === user?.uid) {
-                                return (
-                                        <Grid xs={4} key={doc.id}>
-                                            <MyStuffCard
-                                                id={doc.id}
-                                                pressAction={() => handler(doc.id)}
-                                                cardLevel={doc.grade_level}
-                                                cardTitle={doc.title}
-                                                cardContents={doc.contents}
-                                                // cardDate={(new Date(doc.created_date).toLocaleDateString())}
-                                                // TODO figure out the date issue here
-                                            />
-                                        </Grid>
+
+                                return (<Grid xs={4} key={doc.id}>
+                                        <MyStuffCard
+                                            id={doc.id}
+                                            pressAction={() => handler(doc.id)}
+                                            cardLevel={doc.grade_level}
+                                            cardTitle={doc.title}
+                                            cardContents={doc.contents}
+                                            // cardDate={(new Date(doc.created_date).toLocaleDateString())}
+                                            // TODO figure out the date issue here
+                                        />
+                                    </Grid>
 
 
                                 )
@@ -90,7 +94,7 @@ function MyStuff(props) {
 
                 {/*    MODAL*/}
 
-                {data.map((doc) => {
+                {res ? res.map((doc) => {
 
                     if (doc.id === cardID) {
                         return (<div key={doc.id}>
@@ -109,50 +113,72 @@ function MyStuff(props) {
                                 </Modal.Header>
                                 <Text h3>{doc.title}</Text>
                                 <Text i>{doc.grade_level} Reading Level</Text>
+
                                 <Modal.Body>
                                     <Text id={"modal-description"}>
                                         {doc.contents}
                                     </Text>
-                                    <Divider/>
-                                    <Text style={{
-                                        background: "#f5f5f5", padding: "10px",
-                                    }}>{doc.notes}</Text>
+
+                                    <Spacer y={1}/>
+                                    {editingNotes ? <Input
+                                            color={"secondary"}
+                                            labelLeft={"Editing"}
+                                            status={"default"}
+                                            aria-label={"input"}
+                                            placeholder={doc.notes}
+                                            initialValue={doc.notes}
+                                        />
+                                        // TODO I need to have the ability to switch back to the original view and also save this to firestore
+
+                                        :
+
+                                        <Text
+                                            onClick={() => setEditingNotes(!editingNotes)}
+                                            style={{ padding: "10px"}}
+                                        >
+                                            {doc.notes}
+                                        </Text>
+
+
+                                    }
+
+
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <Button
-                                        onPress={() => {
-                                            deleteDocFromFirebase("saved_text", doc.id).then(r => {
-                                                console.log(r);
-                                            });
-                                            setVisible(false);
+                                    <Button size={"sm"}
+                                            onPress={() => {
+                                                deleteDocFromFirebase("saved_text", doc.id).then(r => {
+                                                    console.log(r);
+                                                });
+                                                setVisible(false);
 
 
-                                        }}
-                                        flat color={"error"}>
+                                            }}
+                                            flat color={"error"}>
 
                                         Delete
                                     </Button>
-                                    <Button onPress={() => {
+                                    <Button color={"secondary"} size="sm" onPress={() => {
                                         navigator.clipboard.writeText(doc.contents).then(r => {
                                             console.log("Text copied to clipboard");
                                         });
-                                    }
-                                    }>
+                                    }}>
                                         Copy Text
                                     </Button>
-                                    {/*TODO Edit button*/}
-                                    {/*<Button onPress={() => {*/}
-                                    {/*    console.log("Edit button pressed")*/}
-                                    {/*}}>*/}
-                                    {/*    Edit*/}
-                                    {/*</Button>*/}
+                                    <Button size="sm" onPress={() => {
+                                        console.log("Edit button pressed")
+                                    }}>
+                                        {/*TODO make this save to db*/}
+                                        Save
+                                    </Button>
                                 </Modal.Footer>
 
                             </Modal>
                         </div>)
                     }
-                })}
-
+                }) : <>
+                    <PacmanLoader/>
+                </>}
 
             </AuthCheck>
         </>
