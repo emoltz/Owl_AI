@@ -70,7 +70,7 @@ function MyStuff(props) {
                         {res ? res.map((doc) => {
                             if (doc.user_id === user?.uid) {
 
-                                return (<Grid xs={4} key={doc.id}>
+                                return (<Grid xs md lg key={doc.id}>
                                         <MyStuffCard
                                             id={doc.id}
                                             pressAction={() => handler(doc.id)}
